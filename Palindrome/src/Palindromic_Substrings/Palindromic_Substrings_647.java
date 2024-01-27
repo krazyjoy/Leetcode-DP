@@ -13,26 +13,32 @@ import java.util.Arrays;
     3. if is a palindrome, add 1 to count, otherwise continue to next substring combination
  */
 public class Palindromic_Substrings_647 {
-    public int countSubstrings(String s){
+    public static void main(String[] args) {
+        String s= "abc";
+        System.out.println(countSubstrings(s));
+        String s2="aaa";
+        System.out.println(countSubstrings(s2));
+    }
+    public static int countSubstrings(String s){
         int n = s.length();
         int[][] dp = new int[n][n];
         for(int i=0; i<n; i++)
-            Arrays.fill(dp,1);
+            Arrays.fill(dp[i],-1);
 
         int count=0;
         for(int i=0; i<n; i++){
             dp[i][i] = 1;
-            for(int j=i+1; j<n; j++){
+            for(int j=i; j<n; j++){
                 count += substring(s, i, j, dp);
             }
         }
         return count;
     }
-    public int substring(String s, int start, int end, int[][] dp){
+    public static int substring(String s, int start, int end, int[][] dp){
         if(start >= end){
             return 1;
         }
-        if(dp[start][end] > 0){
+        if(dp[start][end] >= 0){
             return dp[start][end];
         }
         if(s.charAt(start) == s.charAt(end)){
